@@ -1,24 +1,20 @@
-name: Deploy Node App to Azure
+name: Deploy to Azure Web App
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install
-      - uses: azure/webapps-deploy@v3
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v4
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'omayma-web-app'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-"@ -Encoding utf8
-git add .
-git commit -m "Add Node.js app and GitHub Actions workflow"
-git push origin main
-ls .github/workflows/
-
